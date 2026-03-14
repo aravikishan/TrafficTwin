@@ -35,6 +35,7 @@ app.include_router(views_router)
 
 
 @app.on_event("startup")
+# Updated for clarity
 def startup():
     """Initialize database and load seed data on startup."""
     init_db()
