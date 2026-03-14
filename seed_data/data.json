@@ -1,0 +1,92 @@
+{
+  "simulations": [
+    {
+      "name": "Downtown Grid",
+      "grid_width": 40,
+      "grid_height": 30,
+      "vehicle_count": 60,
+      "max_speed": 5,
+      "braking_probability": 0.3,
+      "preset": "moderate_traffic",
+      "intersections": [
+        {
+          "name": "Main & 1st",
+          "x": 10,
+          "y": 7,
+          "traffic_lights": [
+            {"direction": "north", "state": "green", "green_duration": 30, "yellow_duration": 5, "red_duration": 30},
+            {"direction": "south", "state": "green", "green_duration": 30, "yellow_duration": 5, "red_duration": 30},
+            {"direction": "east", "state": "red", "green_duration": 30, "yellow_duration": 5, "red_duration": 30},
+            {"direction": "west", "state": "red", "green_duration": 30, "yellow_duration": 5, "red_duration": 30}
+          ]
+        },
+        {
+          "name": "Main & 2nd",
+          "x": 20,
+          "y": 7,
+          "traffic_lights": [
+            {"direction": "north", "state": "red", "green_duration": 30, "yellow_duration": 5, "red_duration": 30},
+            {"direction": "south", "state": "red", "green_duration": 30, "yellow_duration": 5, "red_duration": 30},
+            {"direction": "east", "state": "green", "green_duration": 30, "yellow_duration": 5, "red_duration": 30},
+            {"direction": "west", "state": "green", "green_duration": 30, "yellow_duration": 5, "red_duration": 30}
+          ]
+        },
+        {
+          "name": "Broadway & 1st",
+          "x": 10,
+          "y": 15,
+          "traffic_lights": [
+            {"direction": "north", "state": "green", "green_duration": 25, "yellow_duration": 5, "red_duration": 35},
+            {"direction": "south", "state": "green", "green_duration": 25, "yellow_duration": 5, "red_duration": 35},
+            {"direction": "east", "state": "red", "green_duration": 25, "yellow_duration": 5, "red_duration": 35},
+            {"direction": "west", "state": "red", "green_duration": 25, "yellow_duration": 5, "red_duration": 35}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rush Hour Scenario",
+      "grid_width": 40,
+      "grid_height": 30,
+      "vehicle_count": 120,
+      "max_speed": 3,
+      "braking_probability": 0.5,
+      "preset": "rush_hour",
+      "intersections": [
+        {
+          "name": "Central Hub",
+          "x": 20,
+          "y": 15,
+          "traffic_lights": [
+            {"direction": "north", "state": "green", "green_duration": 25, "yellow_duration": 5, "red_duration": 35},
+            {"direction": "south", "state": "green", "green_duration": 25, "yellow_duration": 5, "red_duration": 35},
+            {"direction": "east", "state": "red", "green_duration": 25, "yellow_duration": 5, "red_duration": 35},
+            {"direction": "west", "state": "red", "green_duration": 25, "yellow_duration": 5, "red_duration": 35}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Light Evening Traffic",
+      "grid_width": 30,
+      "grid_height": 20,
+      "vehicle_count": 15,
+      "max_speed": 5,
+      "braking_probability": 0.15,
+      "preset": "light_traffic",
+      "intersections": [
+        {
+          "name": "Elm & Oak",
+          "x": 15,
+          "y": 10,
+          "traffic_lights": [
+            {"direction": "north", "state": "green", "green_duration": 40, "yellow_duration": 5, "red_duration": 20},
+            {"direction": "south", "state": "green", "green_duration": 40, "yellow_duration": 5, "red_duration": 20},
+            {"direction": "east", "state": "red", "green_duration": 40, "yellow_duration": 5, "red_duration": 20},
+            {"direction": "west", "state": "red", "green_duration": 40, "yellow_duration": 5, "red_duration": 20}
+          ]
+        }
+      ]
+    }
+  ]
+}
