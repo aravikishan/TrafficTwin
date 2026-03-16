@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}TrafficTwin - Intersections{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Intersection Management</h1>
+    <p>View, create, and configure intersections and traffic lights</p>
+</div>
+
+<div class="intersections-layout">
+    <div class="card">
+        <h3>Select Simulation</h3>
+        <div class="form-group">
+            <select id="isec-sim-select">
+                <option value="">Choose a simulation...</option>
+                {% for sim in simulations %}
+                <option value="{{ sim.id }}">{{ sim.name }} (#{{ sim.id }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button id="btn-load-intersections" class="btn btn-primary" disabled>Load Intersections</button>
+    </div>
+
+    <div class="card" id="add-intersection-card" style="display:none;">
+        <h3>Add Intersection</h3>
+        <form id="add-intersection-form" class="form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="isec-name">Name</label>
+                    <input type="text" id="isec-name" placeholder="Main & 1st" required>
+                </div>
+                <div class="form-group">
+                    <label for="isec-x">X Position</label>
+                    <input type="number" id="isec-x" value="10" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="isec-y">Y Position</label>
+                    <input type="number" id="isec-y" value="10" min="0">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="isec-green">Green (s)</label>
+                    <input type="number" id="isec-green" value="30" min="5" max="120">
+                </div>
+                <div class="form-group">
+                    <label for="isec-yellow">Yellow (s)</label>
+                    <input type="number" id="isec-yellow" value="5" min="2" max="15">
+                </div>
+                <div class="form-group">
+                    <label for="isec-red">Red (s)</label>
+                    <input type="number" id="isec-red" value="30" min="5" max="120">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Intersection</button>
+        </form>
+    </div>
+
+    <div class="card" id="intersections-list-card" style="display:none;">
+        <h3>Intersections</h3>
+        <table class="data-table" id="intersections-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Traffic Lights</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="card" id="light-config-card" style="display:none;">
+        <h3>Configure Traffic Light</h3>
+        <form id="light-config-form" class="form">
+            <input type="hidden" id="config-light-id">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="config-green">Green Duration</label>
+                    <input type="number" id="config-green" min="5" max="120">
+                </div>
+                <div class="form-group">
+                    <label for="config-yellow">Yellow Duration</label>
+                    <input type="number" id="config-yellow" min="2" max="15">
+                </div>
+                <div class="form-group">
+                    <label for="config-red">Red Duration</label>
+                    <input type="number" id="config-red" min="5" max="120">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Light</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

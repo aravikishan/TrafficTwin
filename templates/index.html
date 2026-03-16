@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}TrafficTwin - Dashboard{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>TrafficTwin</h1>
+    <p class="hero-subtitle">Urban Traffic Simulation with Cellular Automata</p>
+    <p class="hero-desc">Simulate realistic traffic flow using the Nagel-Schreckenberg model. Visualize congestion heatmaps, manage intersections, and analyze traffic patterns in real time.</p>
+    <div class="hero-actions">
+        <a href="/simulate" class="btn btn-primary">Run Simulation</a>
+        <a href="/analytics" class="btn btn-secondary">View Analytics</a>
+    </div>
+</section>
+
+<section class="dashboard-grid">
+    <div class="card stats-card">
+        <h3>Quick Stats</h3>
+        <div class="stat-row">
+            <div class="stat-item">
+                <span class="stat-value" id="sim-count">{{ simulations|length }}</span>
+                <span class="stat-label">Simulations</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">{{ presets|length }}</span>
+                <span class="stat-label">Presets</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Available Presets</h3>
+        <div class="preset-list">
+            {% for name, preset in presets.items() %}
+            <div class="preset-item">
+                <strong>{{ name|replace('_', ' ')|title }}</strong>
+                <p>{{ preset.description }}</p>
+                <div class="preset-meta">
+                    <span>Vehicles: {{ preset.vehicle_count }}</span>
+                    <span>Max Speed: {{ preset.max_speed }}</span>
+                    <span>Braking: {{ preset.braking_probability }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Recent Simulations</h3>
+        {% if simulations %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Steps</th>
+                    <th>Vehicles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sim in simulations %}
+                <tr>
+                    <td>{{ sim.id }}</td>
+                    <td>{{ sim.name }}</td>
+                    <td><span class="status-badge status-{{ sim.status.value }}">{{ sim.status.value }}</span></td>
+                    <td>{{ sim.total_steps }}</td>
+                    <td>{{ sim.vehicle_count }}</td>
+                    <td>
+                        <a href="/simulate?sim_id={{ sim.id }}" class="btn btn-sm">Open</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-state">No simulations yet. Create one to get started!</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="features-section">
+    <h2>Features</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">&#x26A1;</div>
+            <h4>Nagel-Schreckenberg Model</h4>
+            <p>Realistic cellular automata traffic simulation with acceleration, gap detection, and random braking.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1f5fa;</div>
+            <h4>Grid Visualization</h4>
+            <p>Canvas-based real-time rendering of the road network, vehicles, and traffic lights.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1f525;</div>
+            <h4>Congestion Heatmaps</h4>
+            <p>Dynamic heatmap overlay showing vehicle density and congestion hotspots.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#x1f4ca;</div>
+            <h4>Traffic Analytics</h4>
+            <p>Throughput, density, flow rate, speed distribution, and congestion zone analysis.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

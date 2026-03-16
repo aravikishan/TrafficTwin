@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}TrafficTwin - Simulate{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Traffic Simulation</h1>
+    <p>Run and visualize traffic simulations with real-time controls</p>
+</div>
+
+<div class="sim-layout">
+    <aside class="sim-sidebar">
+        <div class="card">
+            <h3>Create Simulation</h3>
+            <form id="create-sim-form" class="form">
+                <div class="form-group">
+                    <label for="sim-name">Name</label>
+                    <input type="text" id="sim-name" placeholder="My Simulation" required>
+                </div>
+                <div class="form-group">
+                    <label for="sim-preset">Preset</label>
+                    <select id="sim-preset">
+                        <option value="">Custom</option>
+                        {% for name, preset in presets.items() %}
+                        <option value="{{ name }}">{{ name|replace('_', ' ')|title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sim-width">Grid Width</label>
+                    <input type="number" id="sim-width" value="{{ default_width }}" min="10" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="sim-height">Grid Height</label>
+                    <input type="number" id="sim-height" value="{{ default_height }}" min="10" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="sim-vehicles">Vehicle Count</label>
+                    <input type="number" id="sim-vehicles" value="60" min="1" max="500">
+                </div>
+                <div class="form-group">
+                    <label for="sim-speed">Max Speed</label>
+                    <input type="number" id="sim-speed" value="5" min="1" max="10">
+                </div>
+                <div class="form-group">
+                    <label for="sim-braking">Braking Probability</label>
+                    <input type="number" id="sim-braking" value="0.3" min="0" max="1" step="0.05">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3>Simulation Controls</h3>
+            <div class="form-group">
+                <label for="active-sim">Active Simulation</label>
+                <select id="active-sim">
+                    <option value="">Select simulation...</option>
+                    {% for sim in simulations %}
+                    <option value="{{ sim.id }}">{{ sim.name }} (#{{ sim.id }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="control-buttons">
+                <button id="btn-step" class="btn btn-primary" disabled>Step</button>
+                <button id="btn-play" class="btn btn-success" disabled>Play</button>
+                <button id="btn-pause" class="btn btn-warning" disabled>Pause</button>
+                <button id="btn-reset" class="btn btn-danger" disabled>Reset</button>
+            </div>
+            <div class="form-group">
+                <label for="step-count">Steps per tick</label>
+                <input type="number" id="step-count" value="1" min="1" max="10">
+            </div>
+            <div class="form-group">
+                <label for="play-speed">Speed (ms)</label>
+                <input type="number" id="play-speed" value="200" min="50" max="2000" step="50">
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="show-heatmap"> Show Heatmap
+                </label>
+            </div>
+        </div>
+
+        <div class="card" id="step-info" style="display:none;">
+            <h3>Step Info</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Step</span>
+                    <span class="info-value" id="info-step">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Vehicles</span>
+                    <span class="info-value" id="info-vehicles">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Avg Speed</span>
+                    <span class="info-value" id="info-speed">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Max Congestion</span>
+                    <span class="info-value" id="info-congestion">0</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="sim-main">
+        <div class="canvas-container">
+            <canvas id="traffic-canvas" width="800" height="600"></canvas>
+        </div>
+        <div class="legend">
+            <div class="legend-item"><span class="legend-color" style="background:#3a3a3a"></span> Empty</div>
+            <div class="legend-item"><span class="legend-color" style="background:#555"></span> Road</div>
+            <div class="legend-item"><span class="legend-color" style="background:#888"></span> Intersection</div>
+            <div class="legend-item"><span class="legend-color" style="background:#4fc3f7"></span> Vehicle</div>
+            <div class="legend-item"><span class="legend-color" style="background:#4caf50"></span> Green Light</div>
+            <div class="legend-item"><span class="legend-color" style="background:#ff9800"></span> Yellow Light</div>
+            <div class="legend-item"><span class="legend-color" style="background:#f44336"></span> Red Light</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}TrafficTwin - About{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>About TrafficTwin</h1>
+    <p>{{ description }}</p>
+</div>
+
+<div class="about-grid">
+    <div class="card">
+        <h3>What is TrafficTwin?</h3>
+        <p>TrafficTwin is an urban traffic simulation platform built on the <strong>Nagel-Schreckenberg</strong> cellular automata model. It provides a realistic representation of traffic flow dynamics on a configurable grid-based road network.</p>
+        <p>The simulator models individual vehicles following four fundamental rules: acceleration, gap-based slowing, random braking (to simulate human behavior), and movement. Traffic lights at intersections cycle through green, yellow, and red phases with configurable durations.</p>
+    </div>
+
+    <div class="card">
+        <h3>Technology Stack</h3>
+        <ul class="tech-list">
+            <li><strong>Backend:</strong> Python / FastAPI</li>
+            <li><strong>Database:</strong> SQLite / SQLAlchemy</li>
+            <li><strong>Templates:</strong> Jinja2</li>
+            <li><strong>Visualization:</strong> HTML5 Canvas</li>
+            <li><strong>Styling:</strong> Custom CSS (urban dark theme)</li>
+            <li><strong>Testing:</strong> pytest / httpx</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>The Nagel-Schreckenberg Model</h3>
+        <p>The NaSch model is a theoretical model for highway traffic simulation. At each time step, every vehicle follows these rules:</p>
+        <ol>
+            <li><strong>Acceleration:</strong> If the vehicle's speed is less than the maximum, increase by 1.</li>
+            <li><strong>Slowing:</strong> If the gap to the next vehicle ahead is less than the current speed, reduce speed to gap size.</li>
+            <li><strong>Random Braking:</strong> With probability <em>p</em>, reduce speed by 1 (simulates unpredictable driver behavior).</li>
+            <li><strong>Movement:</strong> Move forward by the current speed.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3>Version Info</h3>
+        <p><strong>Version:</strong> {{ version }}</p>
+        <p><strong>License:</strong> MIT</p>
+        <p><strong>Author:</strong> TrafficTwin Contributors</p>
+    </div>
+</div>
+{% endblock %}
