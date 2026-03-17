@@ -24,7 +24,7 @@ app = FastAPI(
     description=config.APP_DESCRIPTION,
 )
 
-# Mount static files
+# v1.0.1 - Mount static files
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.isdir(static_dir):
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
