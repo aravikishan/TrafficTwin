@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  traffictwin:
+    build: .
+    container_name: traffictwin
+    ports:
+      - "8007:8007"
+    environment:
+      - TRAFFICTWIN_PORT=8007
+      - TRAFFICTWIN_DEBUG=false
+    volumes:
+      - traffictwin_data:/app/instance
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8007/api/presets"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  traffictwin_data:
